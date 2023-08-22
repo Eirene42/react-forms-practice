@@ -4,11 +4,18 @@ import "./App.css";
 export default function App() {
   
   //TODO: Add your state fields here
-  const [formData, setFormData] = useState({name: '', address: '', phone: '', email: '', complaint: '', contact: '', consent: ''})
+  const [formData, setFormData] = useState({name: '', address: '', phone: '', email: '', complaint: '', contact: '', consent: false})
+  const [consent, setConsent] = useState(false)
 
   const handleChange = (event) => {
-    setFormData({...formData, [event.target.name]: event.target.value})
+    const {name, value} = event.target
+    setFormData({...formData, [name]: value})
   }
+
+  const handleConsent = (event) => {
+    const { name, checked } = event.target;
+    setFormData({ ...formData, [name]: checked });
+}
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -77,7 +84,7 @@ export default function App() {
 
           <label>
             I agree you take my data, and do whatever
-            <input type="checkbox" name="consent" id="consent" onChange={handleChange} />
+            <input type="checkbox" name="consent" id="consent" checked={formData.consent} onChange={handleConsent} />
           </label>
         </div>
         <input type="submit" value="Submit!" />
